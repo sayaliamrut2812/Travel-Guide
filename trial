@@ -1,0 +1,40 @@
+<?php
+
+
+include_once("config.php");
+
+//$conn=mysqli_connect("localhost","root","","Travel");
+
+
+if (isset($_REQUEST['submit'])) 
+{
+    # code...
+
+    echo $email="patilsayali@gmail.com";
+    echo $password=$_REQUEST["password"]; 
+
+    
+    $result=mysqli_query($conn,"select * from tbl_registration where reg_email='$email' and reg_password='$password'");
+
+    $row=mysqli_fetch_array($result);
+
+    if($row['reg_email']==$email && $row['reg_password']==$password)
+    {
+        //echo "login success!! welcome ".$row['reg_email'];
+        session_start();
+	  	
+	   $_SESSION['email']=$email;
+	   $_SESSION['username']=$reg_name;
+       
+	   header("location:index.php");
+	   
+    }
+    else
+    {
+             
+     echo '<script>alert("Invalid Email or password")</script>';
+     //header("Location: index.html");
+
+    }
+}
+?>
